@@ -10,7 +10,7 @@ iPara servislerini kullanabilmek için [iPara'ya](https://www.ipara.com.tr) üye
 
 ## Önemli Notlar
 
-Örnek projelerimizi daha iyi anlamak için [iPara geliştirici merkezini](http://dev.ipara.com.tr) takip etmeniz büyük önem arz etmektedir.
+Örnek projelerimizi daha iyi anlamak için [iPara geliştirici merkezini](https://dev.ipara.com.tr) takip etmeniz büyük önem arz etmektedir.
 
 İlgili örnek proje bir Python/Django projesi barındırır. İlgili örneği kendi private key ve public key'inizle birlikte test ederek kullanabilirsiniz. Sonrasında benzer kullanımları kendi projenize referans alarak ilerleyebilirsiniz. Örnek datalardaki değişkenleri kendi projenizdeki gerçek verilerle set etmeyi unutmayınız.
 
