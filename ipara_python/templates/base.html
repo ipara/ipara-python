@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IPara Developer Portal</title>
+    {% load static %}
+    <link href="{% static "/css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "/css/Site.css" %}" rel="stylesheet">
+    <meta charset="utf-8" />
+</head>
+
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <img src="{% static "/images/iPara_disi-01.png" %}" width="10%" height="10%"/>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li> <a href="{% url 'threeDPayment' %}">3D Ödeme</a>
+                </li>
+                <li> <a href="{% url 'apiPayment' %}">(Non-3D) Ödeme</a>
+                </li>
+                <li> <a href="{% url 'paymentInqury' %}">Ödeme Sorgulama</a><!-- paymentRequest-->
+                </li>
+                <li> <a href="{% url 'binRequest' %}">Bin Sorgulama</a>
+                </li>
+                <li> <a href="{% url 'addCartToWallet' %}">Cüzdana Kart Ekle</a>
+                </li>
+                <li> <a href="{% url 'getCardFromWallet' %}">Cüzdandaki Kartları Listele</a>
+                </li>
+                <li> <a href="{% url 'deleteCardFromWallet' %}">Cüzdandan Kart Sil</a>
+                </li>
+                <li>
+                    <a href="{% url 'apiPaymentWithWallet' %}">Cüzdandaki Kart (Tek Tıkla) İle Ödeme</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container body-content" style="margin-top: 120px">
+    {% block content %}
+
+    {% endblock %}
+    <hr/>
+    <footer>
+        <p>&copy; 2017 - iPara</p>
+    </footer>
+</div>
+</body>
+</html>

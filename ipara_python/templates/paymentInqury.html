@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="" method="post" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Ödeme Sorgulama</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="">Sipariş Numarası:</label>
+            <div class="col-md-4">
+                <input name="orderId" type="text" value="58e1e9f22690b" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for=""></label>
+            <div class="col-md-4">
+                <button type="submit" id="" name="" class="btn btn-success">Sorgula</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+<br />
+<pre>
+{% if message %}
+    {{ message }}
+{% endif %}
+</pre>
+{% endblock %}
