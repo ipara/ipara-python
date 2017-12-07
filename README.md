@@ -65,4 +65,4 @@ Her örnek projenin Helper sınıfı içinde hash hesaplama ile alakalı bir fon
 * Hassas olmayan verileri ve servis yanıtlarını, hata çözümü ve olası sorunların çözümünde yardımcı olması açısından loglamaya dikkat edin.
 * Canlı ortama geçiş sonrası ilk işlemleri kendi kredi kartlarınız ile deneyerek sonuçlarını size özel Kurum ekranlarından görüntüleyin. Sonuçların ve işlemlerin doğru tamamlandığından emin olun.
 
-Sorularınız olması durumunda bize [Destek](http://dev.ipara.com.tr/Home/Support) üzerinden yazabilirsiniz.
+Sorularınız olması durumunda bize [Destek](https://dev.ipara.com.tr/Home/Support) üzerinden yazabilirsiniz.
