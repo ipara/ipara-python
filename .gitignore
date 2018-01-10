@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# PyDev Eclipse
+/.project
+/.pydevproject
+/db.sqlite3
+/.settings

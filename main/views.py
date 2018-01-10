@@ -41,6 +41,7 @@ config = Configs(
 # Ana Sayfamızda Ön Tanımlı Olarak 3D Ödeme Kısmı Gelmekte
 def threeDPaymentRequest(request):
     message = ""
+    xmlOutput = ""
     if request.POST:
         req = ThreedPaymentRequest()
         req.OrderId = str(randint(1, 10000))
@@ -65,9 +66,8 @@ def threeDPaymentRequest(request):
 
         # 3D formunun 1. Adımının başlatılması için istek çağrısının yapıldığı kısımdır.
         message = req.execute(req, config)
-
+                
     return render_to_response('index.html', {'message': message})
-
 
 # 3D Ödeme Sonucu Başarılı Olduğunda Çalışacak Kısım
 def threeDResultSuccess(request):
@@ -160,8 +160,8 @@ def threeDResultSuccess(request):
             config.BaseUrl = "https://api.ipara.com/"
             # 3D formunun 2. Adımında ödeme işleminin tamamlanması için başlatılan istek
             # çağrısının yapıldığı kısımdır.
-            message = req.execute(req, config)
-
+            message = Helper.formatXML(req.execute(req, config))
+            
     return render_to_response('threeDResultSuccess.html', {'message': message})
 
 
@@ -187,86 +187,85 @@ def threeDResultFail(request):
         if request.POST.get('errorMessage') != "":
             output += "<errorMessage>"+request.POST.get('errorMessage')+"</errorMessage>"
         output += "</authResponse>"
-
+        output = Helper.formatXML(output)
     return render_to_response('threeDResultFail.html', {'message': output})
-
 
 
 # 3D Olmadan Ödeme Örneği
 def apiPaymentRequest(request):
     message = ""
     if request.POST:
-        api = ApiPaymentRequest()
-        api.Echo = "Echo"
-        api.Mode = config.Mode
-        api.ThreeD = "false"
-        api.OrderId = str(randint(1, 10000))
-        api.Amount = "10000"
-        api.CardOwnerName = request.POST.get('nameSurname')
-        api.CardNumber = request.POST.get('cardNumber')
-        api.CardExpireMonth = request.POST.get('month')
-        api.CardExpireYear = request.POST.get('year')
-        api.Installment = request.POST.get('installment')
-        api.Cvc = request.POST.get('cvc')
-        api.VendorId = ""
-        api.UserId = "123456"
-        api.CardId = ""
-        api.ThreeDSecureCode = ""
+        non3DPaymentRequest = ApiPaymentRequest()
+        non3DPaymentRequest.Echo = "Echo"
+        non3DPaymentRequest.Mode = config.Mode
+        non3DPaymentRequest.ThreeD = "false"
+        non3DPaymentRequest.OrderId = str(randint(1, 10000))
+        non3DPaymentRequest.Amount = "10000"
+        non3DPaymentRequest.CardOwnerName = request.POST.get('nameSurname')
+        non3DPaymentRequest.CardNumber = request.POST.get('cardNumber')
+        non3DPaymentRequest.CardExpireMonth = request.POST.get('month')
+        non3DPaymentRequest.CardExpireYear = request.POST.get('year')
+        non3DPaymentRequest.Installment = request.POST.get('installment')
+        non3DPaymentRequest.Cvc = request.POST.get('cvc')
+        non3DPaymentRequest.VendorId = ""
+        non3DPaymentRequest.UserId = "123456"
+        non3DPaymentRequest.CardId = ""
+        non3DPaymentRequest.ThreeDSecureCode = ""
 
-        api.Purchaser = api.PurchaserClass()
-        api.Purchaser.name = "Murat"
-        api.Purchaser.surname = "Kaya"
-        api.Purchaser.birthDate = "1986-07-11"
-        api.Purchaser.email = "mura@kaya.com"
-        api.Purchaser.gsmPhone = "5881231212"
-        api.Purchaser.tcCertificate = "58812312547"
-        api.Purchaser.clientIp = "127.0.0.1"
+        non3DPaymentRequest.Purchaser = non3DPaymentRequest.PurchaserClass()
+        non3DPaymentRequest.Purchaser.name = "Murat"
+        non3DPaymentRequest.Purchaser.surname = "Kaya"
+        non3DPaymentRequest.Purchaser.birthDate = "1986-07-11"
+        non3DPaymentRequest.Purchaser.email = "mura@kaya.com"
+        non3DPaymentRequest.Purchaser.gsmPhone = "5881231212"
+        non3DPaymentRequest.Purchaser.tcCertificate = "58812312547"
+        non3DPaymentRequest.Purchaser.clientIp = "127.0.0.1"
 
         # Fatura Bilgileri
-        api.Purchaser.invoiceAddress = api.PurchaserAddress()
-        api.Purchaser.invoiceAddress.name = "Murat"
-        api.Purchaser.invoiceAddress.surname = "Kaya"
-        api.Purchaser.invoiceAddress.address = "Mevlüt Pehlivan Mah. Multinet Plaza Şişli"
-        api.Purchaser.invoiceAddress.zipCode = "34782"
-        api.Purchaser.invoiceAddress.cityCode = "34"
-        api.Purchaser.invoiceAddress.tcCertificate = "1234567890"
-        api.Purchaser.invoiceAddress.country = "TR"
-        api.Purchaser.invoiceAddress.taxNumber = "123456"
-        api.Purchaser.invoiceAddress.taxOffice = "Kozyatagi"
-        api.Purchaser.invoiceAddress.companyName = "iPara"
-        api.Purchaser.invoiceAddress.phoneNumber = "2122222222"
+        non3DPaymentRequest.Purchaser.invoiceAddress = non3DPaymentRequest.PurchaserAddress()
+        non3DPaymentRequest.Purchaser.invoiceAddress.name = "Murat"
+        non3DPaymentRequest.Purchaser.invoiceAddress.surname = "Kaya"
+        non3DPaymentRequest.Purchaser.invoiceAddress.address = "Mevlüt Pehlivan Mah. Multinet Plaza Şişli"
+        non3DPaymentRequest.Purchaser.invoiceAddress.zipCode = "34782"
+        non3DPaymentRequest.Purchaser.invoiceAddress.cityCode = "34"
+        non3DPaymentRequest.Purchaser.invoiceAddress.tcCertificate = "1234567890"
+        non3DPaymentRequest.Purchaser.invoiceAddress.country = "TR"
+        non3DPaymentRequest.Purchaser.invoiceAddress.taxNumber = "123456"
+        non3DPaymentRequest.Purchaser.invoiceAddress.taxOffice = "Kozyatagi"
+        non3DPaymentRequest.Purchaser.invoiceAddress.companyName = "iPara"
+        non3DPaymentRequest.Purchaser.invoiceAddress.phoneNumber = "2122222222"
 
         # Kargo Bilgileri
-        api.Purchaser.shippingAddress = api.PurchaserAddress()
-        api.Purchaser.shippingAddress.name = "Murat"
-        api.Purchaser.shippingAddress.surname = "Kaya"
-        api.Purchaser.shippingAddress.address = "Mevlüt Pehlivan Mah. Multinet Plaza Şişli"
-        api.Purchaser.shippingAddress.zipCode = "34782"
-        api.Purchaser.shippingAddress.cityCode = "34"
-        api.Purchaser.shippingAddress.tcCertificate = "1234567890"
-        api.Purchaser.shippingAddress.country = "TR"
-        api.Purchaser.shippingAddress.phoneNumber = "2122222222"
+        non3DPaymentRequest.Purchaser.shippingAddress = non3DPaymentRequest.PurchaserAddress()
+        non3DPaymentRequest.Purchaser.shippingAddress.name = "Murat"
+        non3DPaymentRequest.Purchaser.shippingAddress.surname = "Kaya"
+        non3DPaymentRequest.Purchaser.shippingAddress.address = "Mevlüt Pehlivan Mah. Multinet Plaza Şişli"
+        non3DPaymentRequest.Purchaser.shippingAddress.zipCode = "34782"
+        non3DPaymentRequest.Purchaser.shippingAddress.cityCode = "34"
+        non3DPaymentRequest.Purchaser.shippingAddress.tcCertificate = "1234567890"
+        non3DPaymentRequest.Purchaser.shippingAddress.country = "TR"
+        non3DPaymentRequest.Purchaser.shippingAddress.phoneNumber = "2122222222"
 
         # Ürün Bilgileri
-        api.Products = []
-        product1 = api.Product()
+        non3DPaymentRequest.Products = []
+        product1 = non3DPaymentRequest.Product()
         product1.title = "Telefon"
         product1.code = "TLF0001"
         product1.price = "5000"
         product1.quantity = "1"
-        api.Products.append(product1)
+        non3DPaymentRequest.Products.append(product1)
 
-        product2 = api.Product()
+        product2 = non3DPaymentRequest.Product()
         product2.title = "Bilgisayar"
         product2.code = "BLG0001"
         product2.price = "5000"
         product2.quantity = "1"
-        api.Products.append(product2)
+        non3DPaymentRequest.Products.append(product2)
 
         # API Cagrisi Yapiyoruz
-        message = api.execute(api, config)
-
-    return render_to_response('index.html', {'message': message})
+        message = Helper.formatXML(non3DPaymentRequest.execute(non3DPaymentRequest, config))
+                
+    return render_to_response('apiPayment.html', {'message': message})
 
 
 def paymentInquryRequest(request):
@@ -276,7 +275,7 @@ def paymentInquryRequest(request):
         req.orderId = request.POST.get('orderId')
 
         # ödeme sorgulama servisi api çağrısının yapıldığı kısımdır.
-        message = req.execute(req, config)
+        message = Helper.formatXML(req.execute(req, config))
 
     return render_to_response('paymentInqury.html', {'message': message})
 
@@ -349,7 +348,7 @@ def apiPaymentWithWallet(request):
         req.Products.append(product2)
 
         # Cüzdandaki kart ile ödeme yapma API çağrısının yapıldığı kısımdır.
-        message = req.execute(req, config)
+        message = Helper.formatXML(req.execute(req, config))
 
     return render_to_response('apiPaymentWithWallet.html', {'message': message})
 

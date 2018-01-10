@@ -22,7 +22,7 @@ class ApiPaymentRequest(object):
     Purchaser = ""
 
     def convert_to_xml(self, req, settings):
-        main_root = Element('auth')
+        main_root = Element('auth', encoding='UTF-8')
 
         cardOwnerName = SubElement(main_root, 'cardOwnerName')
         cardOwnerName.text = req.CardOwnerName
@@ -130,14 +130,16 @@ class ApiPaymentRequest(object):
     def execute(self, req, configs):
         helper = Helper()
         configs.TransactionDate = helper.GetTransactionDateString()
-        configs.HashString = configs.PrivateKey+req.UserId+req.CardOwnerName+\
-                             req.CardNumber+req.CardExpireMonth+req.CardExpireYear+\
-                             req.PurchaserClass.clientIp+configs.TransactionDate
 
+        configs.HashString = configs.PrivateKey + req.OrderId + req.Amount + req.Mode+\
+            req.CardOwnerName + req.CardNumber + req.CardExpireMonth + req.CardExpireYear +\
+            req.Cvc + req.UserId + req.CardId + req.Purchaser.name + req.Purchaser.surname +\
+            req.Purchaser.email + configs.TransactionDate
+            
         result = HttpClient.post(configs.BaseUrl+"rest/payment/auth",\
                                  helper.GetHttpHeaders(configs, helper.Application_xml),\
                                  self.convert_to_xml(req, configs))
-
+        
         return result
 
     # Bu sınıf cüzdana kart ekleme servisi isteği sonucunda ve cüzdandaki kartları getir

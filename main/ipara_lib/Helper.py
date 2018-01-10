@@ -2,8 +2,7 @@ import hashlib
 import datetime
 import base64
 import requests
-import xml.etree.ElementTree as ET
-
+import xml.dom.minidom as MND
 
 class Helper(object):
     TransactionDate = "transactionDate"
@@ -82,13 +81,13 @@ class Helper(object):
         if hashedText != paymentResponse.Hash:
             raise Exception("Ödeme cevabı hash doğrulaması hatalı.")
         return True
-
+    
     @staticmethod
-    def formatXMLOutput(input):
-        root = ET.fromstring(input)
-        return root
-
-
+    def formatXML(input):
+        doc = MND.parseString(input)
+        output = doc.toprettyxml(indent="\t", newl="\n", encoding="utf-8").decode('UTF-8')        
+        return output;
+        
 class HttpClient(object):
     @staticmethod
     def get(url, header={}):
