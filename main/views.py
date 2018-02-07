@@ -12,7 +12,7 @@ from main.ipara_lib.ThreedPaymentCompleteRequest import ThreedPaymentCompleteReq
 from main.ipara_lib.ThreedPaymentRequest import ThreedPaymentRequest
 from main.ipara_lib.ApiPaymentRequest import ApiPaymentRequest
 
-from random import *
+from random import randint
 import json
 
 config = Configs(
@@ -41,7 +41,6 @@ config = Configs(
 # Ana Sayfamızda Ön Tanımlı Olarak 3D Ödeme Kısmı Gelmekte
 def threeDPaymentRequest(request):
     message = ""
-    xmlOutput = ""
     if request.POST:
         req = ThreedPaymentRequest()
         req.OrderId = str(randint(1, 10000))
