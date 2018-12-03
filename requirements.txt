@@ -13,4 +13,4 @@
 Django == 1.11.16
 
 # main/ipara_lib/Helper.py: 4
-requests == 2.18.4
+requests == 2.20.0
