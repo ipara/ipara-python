@@ -10,7 +10,7 @@
 # main/tests.py: 1
 # main/views.py: 1
 # manage.py: 14
-Django == 1.11.16
+Django == 1.11.18
 
 # main/ipara_lib/Helper.py: 4
 requests == 2.20.0
