@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <fieldset>
     <legend>
         <label style="font-weight: bold; width: 250px">Sepet Bilgileri</label>
@@ -27,8 +25,10 @@
                 <td>1</td>
                 <td>50.00 TL</td>
             </tr>
+
             <tr>
                 <td colspan="3">Toplam Tutar</td>
+
                 <td>100.00 TL</td>
             </tr>
         </tbody>
@@ -66,7 +66,7 @@
     <label style="font-weight: bold">Şehir :</label> İstanbul<br />
     <label style="font-weight: bold">Ülke :</label> Türkiye<br />
     <label style="font-weight: bold">TC Kimlik Numarası :</label>
-    12345678901<br />
+    1234567890<br />
     <label style="font-weight: bold">Telefon Numarası:</label> 2123886600<br />
     <label style="font-weight: bold">Vergi Numarası :</label> 123456<br />
     <label style="font-weight: bold">Vergi Dairesi Adı :</label> Kozyatağı<br />
@@ -76,91 +76,42 @@
 <br />
 <form action="" method="post" class="form-horizontal">
     <fieldset>
-        <!-- Form Name -->
         <legend>
             <label style="font-weight: bold; width: 250px"
-                >Kart Bilgileriyle Ödeme</label
+                >Tek Tıkla Ödeme</label
             >
         </legend>
-        <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for=""
-                >Kart Sahibi Adı Soyadı (*):</label
-            >
+            <label class="col-md-4 control-label" for="">Kullanıcı Id (*):</label>
             <div class="col-md-4">
                 <input
-                    value="Fatih Coşkun"
-                    name="nameSurname"
-                    class="form-control input-md"
-                    required
-                />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for=""
-                >Kart Numarası (*):</label
-            >
-            <div class="col-md-4">
-                <input
-                    value="4508034508034509"
-                    name="cardNumber"
-                    class="form-control input-md"
-                    required
-                />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for=""
-                >Son Kullanma Tarihi Ay/Yıl (*):</label
-            >
-            <div class="col-md-1">
-                <input
-                    name="month"
+                    name="userId"
                     type="text"
-                    value="12"
+                    value="123456"
                     class="form-control input-md"
                     required
                 />
             </div>
-            <div class="col-md-1">
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="">Kart Id (*):</label>
+            <div class="col-md-4">
                 <input
-                    name="year"
+                    name="cardId"
                     type="text"
-                    value="24"
+                    value=""
                     class="form-control input-md"
                     required
                 />
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="">CVC (*):</label>
-            <div class="col-md-4">
-                <input
-                    value="000"
-                    name="cvc"
-                    class="form-control input-md"
-                    required
-                />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="">Tutar (**):</label>
-            <div class="col-md-4">
-                <input
-                    value="10000"
-                    name="amount"
-                    class="form-control input-md"
-                    required
-                />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for=""
-                >Taksit (Opsiyonel):</label
-            >
+            <label class="col-md-4 control-label" for="">
+                Taksit (*):
+            </label>
+
             <div class="col-md-4">
                 <select class="form-control input-md" name="installment">
-                    <option value="">Seçiniz</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -183,22 +134,16 @@
         <label class="col-md-4 control-label" for=""></label>
         <div class="col-md-4">
             <button type="submit" id="" name="" class="btn btn-success">
-                3D Ödeme
+                Non-3D Ödeme
             </button>
         </div>
     </div>
-    <p>
-        ** Sipariş tutarı kuruş ayracı olmadan gönderilmelidir. Örneğin; 1 TL
-        100, 12 1200, 130 13000, 1.05 105, 1.2 120 olarak gönderilmelidir.
-    </p>
 </form>
 
-
+<br />
 <pre>
 {% if message %}
-{% autoescape off %}
 {{ message }}
-{% endautoescape %}
 {% endif %}
 </pre>
 {% endblock %}

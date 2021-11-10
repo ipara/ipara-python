@@ -1,3 +1,4 @@
+# coding=utf-8
 import json
 
 from main.ipara_lib.Helper import Helper, HttpClient
@@ -17,10 +18,10 @@ class BankCardDeleteRequest:
         helper = Helper()
         configs.TransactionDate = helper.GetTransactionDateString()
 
-        configs.HashString = configs.PrivateKey+req.userId+req.cardId+req.clientIp+\
+        configs.HashString = configs.PrivateKey+req.userId+req.cardId+req.clientIp +\
             configs.TransactionDate
 
-        json_data = json.dumps(req.__dict__) # Json Serilestirme
+        json_data = json.dumps(req.__dict__)  # Json Serilestirme
 
         return HttpClient.post(configs.BaseUrl+"/bankcard/delete",
-                               helper.GetHttpHeaders(configs, helper.Application_json),json_data)
+                               helper.GetHttpHeaders(configs, helper.Application_json), json_data)

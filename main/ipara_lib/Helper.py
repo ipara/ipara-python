@@ -1,8 +1,11 @@
+# coding=utf-8
 import hashlib
 import datetime
 import base64
 import requests
 import xml.dom.minidom as MND
+import pytz
+
 
 class Helper(object):
     TransactionDate = "transactionDate"
@@ -17,11 +20,12 @@ class Helper(object):
 	Servis çağrılarında kullanılacak istek zamanı için istenen tarih formatında bu fonksiyon kullanılmalıdır.
     Bu fonksiyon verdiğimiz tarih değerini iParanın bizden beklemiş olduğu tarih formatına değiştirmektedir.
     '''
+
     def GetTransactionDateString(self):
-        d = datetime.datetime.now()
+        d = datetime.datetime.now(pytz.timezone('Asia/Bahrain'))
         return d.strftime("%Y-%m-%d %H:%M:%S")
 
-    #Parametre olarak verilen key bilgisini Sha1 algoritmasıyla hasleyerek geri döndürür.
+    # Parametre olarak verilen key bilgisini Sha1 algoritmasıyla hasleyerek geri döndürür.
     def Sha1Creator(self, key):
         return hashlib.sha1(str(key).encode('utf-8')).hexdigest()
 
@@ -32,6 +36,7 @@ class Helper(object):
 	hashstring alanı servise ait birden fazla alanın birleşmesi sonucu oluşan verileri ve public key mağaza açık anahtarını
     kullanarak bizlere token üretmemizi sağlar.
     '''
+
     def CreateToken(self, publicKey, hashString):
         encoded = hashlib.sha1(hashString.encode('utf-8')).digest()
         encoded = base64.b64encode(encoded)
@@ -41,6 +46,7 @@ class Helper(object):
     Verilen string i SHA1 ile hashleyip Base64 formatına çeviren fonksiyondur.
     CreateToken dan farklı olarak token oluşturmaz sadece hash hesaplar
     '''
+
     def ComputeHash(self, hashString):
         encoded = hashlib.sha1(hashString.encode('utf-8')).digest()
         encoded = base64.b64encode(encoded)
@@ -70,24 +76,28 @@ class Helper(object):
         if paymentResponse.Hash is None:
             raise Exception("Odeme cevabi hash bilgisi bos")
 
-        hashText = paymentResponse.OrderId+paymentResponse.Result+paymentResponse.Amount+paymentResponse.Mode+paymentResponse.ErrorCode+\
-        paymentResponse.ErrorMessage+paymentResponse.TransactionDate+configs.PublicKey+configs.PrivateKey
+        hashText = paymentResponse.OrderId+paymentResponse.Result+paymentResponse.Amount+paymentResponse.Mode+paymentResponse.ErrorCode +\
+            paymentResponse.ErrorMessage+paymentResponse.TransactionDate + \
+            configs.PublicKey+configs.PrivateKey
         hashedText = self.ComputeHash(hashText)
 
         if hashedText != paymentResponse.Hash:
-            hashText = paymentResponse.OrderId+paymentResponse.Result+paymentResponse.Amount+paymentResponse.Mode+paymentResponse.ErrorCode+\
-                paymentResponse.ErrorMessage+paymentResponse.TransactionDate+configs.PublicKey+configs.PrivateKey
+            hashText = paymentResponse.OrderId+paymentResponse.Result+paymentResponse.Amount+paymentResponse.Mode+paymentResponse.ErrorCode +\
+                paymentResponse.ErrorMessage+paymentResponse.TransactionDate + \
+                configs.PublicKey+configs.PrivateKey
         hashedText = self.ComputeHash(hashText)
         if hashedText != paymentResponse.Hash:
             raise Exception("Ödeme cevabı hash doğrulaması hatalı.")
         return True
-    
+
     @staticmethod
     def formatXML(input):
         doc = MND.parseString(input)
-        output = doc.toprettyxml(indent="\t", newl="\n", encoding="utf-8").decode('UTF-8')        
-        return output;
-        
+        output = doc.toprettyxml(
+            indent="\t", newl="\n", encoding="utf-8").decode('UTF-8')
+        return output
+
+
 class HttpClient(object):
     @staticmethod
     def get(url, header={}):

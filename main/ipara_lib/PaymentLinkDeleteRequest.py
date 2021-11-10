@@ -5,23 +5,21 @@ from main.ipara_lib.Helper import Helper, HttpClient
 from main.ipara_lib.configs import Configs
 
 
-class BinNumberRequest:
-    # Bin Sorgulama servisleri içerisinde kullanılacak olan bin numarasını temsil eder.
-    binNumber = ""
-    amount = ""
-    threeD = ""
-
-    def __init__(self):
-        pass
+class PaymentLinkDeleteRequest:
+    # Ödeme linki silme servisi için gerekli olan servis girdi parametrelerini temsil eder.
+    clientIp = ""
+    linkId = ""
 
     def execute(self, req, configs):
         helper = Helper()
         configs.TransactionDate = helper.GetTransactionDateString()
 
-        configs.HashString = configs.PrivateKey+req.binNumber+configs.TransactionDate
+        configs.HashString = configs.PrivateKey + \
+            req.clientIp + configs.TransactionDate
 
         json_data = json.dumps(req.__dict__)  # Json Serilestirme
 
-        result = HttpClient.post(configs.BaseUrl+"/rest/payment/bin/lookup/v2",
+        result = HttpClient.post(configs.BaseUrl+"corporate/merchant/linkpayment/delete",
                                  helper.GetHttpHeaders(configs, helper.Application_json), json_data)
+
         return result

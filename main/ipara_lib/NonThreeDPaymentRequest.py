@@ -1,9 +1,9 @@
+# coding=utf-8
 from main.ipara_lib.Helper import Helper, HttpClient
 from xml.etree.ElementTree import Element, SubElement, tostring
 
 
-class ThreedPaymentCompleteRequest:
-    # 3D Secure ile ödemenin 2. Adımında gerekli olan servis girdi parametrelerini temsil eder.
+class NonThreeDPaymentRequest(object):
     Echo = ""
     Mode = ""
     ThreeD = ""
@@ -21,27 +21,6 @@ class ThreedPaymentCompleteRequest:
     ThreeDSecureCode = ""
     Products = ""
     Purchaser = ""
-
-    # 3D secure 2. Adımında ödeme onayı sağlanarak
-    # tahsilat gerçekleştirilmesi için gerekli olan servis isteğini temsil eder.
-    def execute(self, req, configs):
-        helper = Helper()
-        configs.TransactionDate = helper.GetTransactionDateString()
-        configs.HashString = configs.PrivateKey+req.OrderId+req.Amount+req.Mode+\
-                             req.ThreeDSecureCode+configs.TransactionDate
-
-        print("PKEY: "+configs.PrivateKey)
-        print("OrderID: "+req.OrderId)
-        print("Amount: "+req.Amount)
-        print("Mode: "+req.Mode)
-        print("3D: "+req.ThreeDSecureCode)
-        print("Date: "+configs.TransactionDate)
-
-        result = HttpClient.post(configs.BaseUrl+"rest/payment/auth",\
-                                 helper.GetHttpHeaders(configs, helper.Application_xml),\
-                                 self.convert_to_xml(req, configs))
-
-        return result
 
     def convert_to_xml(self, req, settings):
         main_root = Element('auth', encoding='UTF-8')
@@ -61,11 +40,9 @@ class ThreedPaymentCompleteRequest:
         cardId = SubElement(main_root, 'cardId')
         cardId.text = req.CardId
         installment = SubElement(main_root, 'installment')
-        installment.text =  req.Installment
+        installment.text = req.Installment
         threeD = SubElement(main_root, 'threeD')
         threeD.text = req.ThreeD
-        threeDSecureCode = SubElement(main_root, 'threeDSecureCode')
-        threeDSecureCode.text = req.ThreeDSecureCode
         orderId = SubElement(main_root, 'orderId')
         orderId.text = req.OrderId
         echo = SubElement(main_root, 'echo')
@@ -146,11 +123,45 @@ class ThreedPaymentCompleteRequest:
         xml_string = "<?xml version='1.0' encoding='UTF-8'?>"
 
         myresult = tostring(main_root).decode('utf-8')
-        print("XMLLLLL")
         print(xml_string+myresult)
 
         return (xml_string+myresult)
 
+    # 3D Secure Olmadan Odeme Servis cagsirini temsil eder.
+    def execute(self, req, configs):
+        helper = Helper()
+        configs.TransactionDate = helper.GetTransactionDateString()
+
+        configs.HashString = configs.PrivateKey + req.OrderId + req.Amount + req.Mode +\
+            req.CardOwnerName + req.CardNumber + req.CardExpireMonth + req.CardExpireYear +\
+            req.Cvc + req.UserId + req.CardId + req.Purchaser.name + req.Purchaser.surname +\
+            req.Purchaser.email + configs.TransactionDate
+
+        result = HttpClient.post(configs.BaseUrl+"rest/payment/auth",
+                                 helper.GetHttpHeaders(
+                                     configs, helper.Application_xml),
+                                 self.convert_to_xml(req, configs))
+
+        return result
+
+    # Bu sınıf cüzdana kart ekleme servisi isteği sonucunda ve cüzdandaki kartları getir
+    # isteği sonucunda bize döndürülen alanları temsil eder.
+    class BankCard:
+        cardId = ""
+        maskNumber = ""
+        alias = ""
+        bankId = ""
+        bankName = ""
+        cardFamilyName = ""
+        supportsInstallment = ""
+        supportedInstallments = ""
+        Type = ""
+        serviceProvider = ""
+        threeDSecureMandatory = ""
+        cvcMandatory = ""
+
+        def __init__(self):
+            pass
 
     # Bu sınıf 3D secure olmadan ödeme kısmında ürün bilgisinin kullanılacağı yerde
     # ve 3D secure ile ödemenin 2. adamında ürün bilgisinin istendiği yerde kullanılır.
@@ -178,9 +189,9 @@ class ThreedPaymentCompleteRequest:
         quantity = ""
         price = ""
 
-
     # Bu sınıf 3D secure olmadan ödeme kısmında ürün bilgisinin kullanılacağı yerde
     # ve 3D secure ile ödemenin 2. adamında ürün bilgisinin istendiği yerde kullanılır.
+
     class PurchaserClass:
         name = ""
         surname = ""
@@ -192,8 +203,8 @@ class ThreedPaymentCompleteRequest:
         invoiceAddress = ""
         shippingAddress = ""
 
-
     # Bu sınıf 3D Secure ile Ödeme işlemlerinin 1. ve 2. adımında kullanılan parametreleri temsil eder.
+
     class IparaAuth:
         threeD = ""
         orderId = ""

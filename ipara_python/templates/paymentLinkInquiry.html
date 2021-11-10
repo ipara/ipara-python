@@ -1,0 +1,172 @@
+{% extends 'base.html' %} {% block content %}
+<form action="" method="post" class="form-horizontal">
+    <fieldset>
+        <!-- Form Name -->
+        <legend>Ödeme Linklerini Listele</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="email"
+                >Müşteri Email (Opsiyonel):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="email"
+                    type="text"
+                    value="fatih@domain.com"
+                    class="form-control input-md"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="gsm"
+                >Müşteri Cep Telefonu (Opsiyonel):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="gsm"
+                    type="text"
+                    value=""
+                    class="form-control input-md"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for=""
+                >Başlangıç Tarihi (Gün/Ay/Yıl) (Opsiyonel) (**):</label
+            >
+            <div class="col-md-1">
+                <input
+                    name="startDay"
+                    type="text"
+                    value="10"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+            <div class="col-md-1">
+                <input
+                    name="startMonth"
+                    type="text"
+                    value="10"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+            <div class="col-md-1">
+                <input
+                    name="startYear"
+                    type="text"
+                    value="2021"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for=""
+                >Bitiş Tarihi (Gün/Ay/Yıl) (Opsiyonel) (**):</label
+            >
+            <div class="col-md-1">
+                <input
+                    name="endDay"
+                    type="text"
+                    value="29"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+            <div class="col-md-1">
+                <input
+                    name="endMonth"
+                    type="text"
+                    value="10"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+            <div class="col-md-1">
+                <input
+                    name="endYear"
+                    type="text"
+                    value="2021"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="linkState"
+                >Ödeme Durum Bilgisi (Opsiyonel):</label
+            >
+            <div class="col-md-4">
+                <select class="form-control input-md" name="linkState">
+                    <option value="">Seçiniz</option>
+                    <option value="0">Link İsteği Alındı</option>
+                    <option value="1">Link URL’i yaratıldı</option>
+                    <option value="2">Link Gönderildi, Ödeme Bekleniyor</option>
+                    <option value="3">Link ile Ödeme Başarılı</option>
+                    <option value="98">Link Zaman Aşımına Uğradı</option>
+                    <option value="99">Link Silindi</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for=""
+                >Sayfa Sayısı (5-15) (*):</label
+            >
+            <div class="col-md-4">
+                <select name="pageSize" class="form-control">
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for=""
+                >Sayfa Index (*):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="pageIndex"
+                    type="text"
+                    value="1"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for=""></label>
+            <div class="col-md-4">
+                <button type="submit" id="" name="" class="btn btn-success">
+                    Ödeme Linklerini Listele
+                </button>
+            </div>
+        </div>
+    </fieldset>
+    <p>
+        ** Başlangış ve Bitiş tarihi parametreleri bir çift olarak
+        çalışmaktadır. Bu nedenle eğer biri istek içine eklenmiş ise, diğerinin
+        de eklenmesi gerekmektedir.
+    </p>
+</form>
+
+<br />
+<pre>
+{% if message %}
+{{ message }}
+{% endif %}
+</pre>
+{% endblock %}

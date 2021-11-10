@@ -1,0 +1,192 @@
+{% extends 'base.html' %} {% block content %}
+<form action="" method="post" class="form-horizontal">
+    <fieldset>
+        <!-- Form Name -->
+        <legend>Ödeme Linki Oluştur</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="name"
+                >Müşteri Adı (*):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="name"
+                    type="text"
+                    value="Fatih"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="surname"
+                >Müşteri Soyadı (*):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="surname"
+                    type="text"
+                    value="Coskun"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="tcCertificate"
+                >Müşteri TCKN (Opsiyonel):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="tcCertificate"
+                    type="text"
+                    value=""
+                    class="form-control input-md"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="taxNumber"
+                >Müşteri Vergi No (Opsiyonel):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="taxNumber"
+                    type="text"
+                    value=""
+                    class="form-control input-md"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="email"
+                >Müşteri Email (*):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="email"
+                    type="text"
+                    value="fatih@domain.com"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="gsm"
+                >Müşteri Cep Telefonu (*):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="gsm"
+                    type="text"
+                    value="5881231212"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="amount"
+                >Tahsil Edilecek Tutar (TL) (**):</label
+            >
+            <div class="col-md-4">
+                <input
+                    name="amount"
+                    type="text"
+                    value="1000"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="threeD"
+                >3D / Non-Secure (*)</label
+            >
+            <div class="col-md-4">
+                <select class="form-control input-md" name="threeD">
+                    <option value="true">3D</option>
+                    <option value="false">Non-Secure</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for=""
+                >Link Geçerlilik Süresi (Gün/Ay/Yıl) (*):</label
+            >
+            <div class="col-md-1">
+                <input
+                    name="expireDateDay"
+                    type="text"
+                    value="29"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+            <div class="col-md-1">
+                <input
+                    name="expireDateMonth"
+                    type="text"
+                    value="10"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+            <div class="col-md-1">
+                <input
+                    name="expireDateYear"
+                    type="text"
+                    value="2021"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="threeD"
+                >Müşteriye Bilgilendirme Mailli Gönder (*):</label
+            >
+            <div class="col-md-4">
+                <select class="form-control input-md" name="sendEmail">
+                    <option value="true">Evet</option>
+                    <option value="false">Hayır</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="threeD"
+                >Komisyon Kime Yansıtılacak (Opsiyonel)</label
+            >
+            <div class="col-md-4">
+                <select class="form-control input-md" name="commissionType">
+                    <option value="1">Satıcı (Varsayılan)</option>
+                    <option value="2">Müşteri</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for=""></label>
+            <div class="col-md-4">
+                <button type="submit" id="" name="" class="btn btn-success">
+                    Ödeme Linki Oluştur
+                </button>
+            </div>
+        </div>
+    </fieldset>
+    <p>
+        ** Sipariş tutarı kuruş ayracı olmadan gönderilmelidir. Örneğin; 1 TL
+        100, 12 1200, 130 13000, 1.05 105, 1.2 120 olarak gönderilmelidir.
+    </p>
+</form>
+
+<br />
+<pre>
+{% if message %}
+{{ message }}
+{% endif %}
+</pre>
+{% endblock %}

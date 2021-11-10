@@ -1,6 +1,5 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
 <fieldset>
     <legend>
         <label style="font-weight: bold; width: 250px">Sepet Bilgileri</label>
@@ -156,11 +155,10 @@
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for=""
-                >Taksit (Opsiyonel):</label
+                >Taksit (*):</label
             >
             <div class="col-md-4">
                 <select class="form-control input-md" name="installment">
-                    <option value="">Seçiniz</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -177,13 +175,12 @@
             </div>
         </div>
     </fieldset>
-
     <!-- Button -->
     <div class="form-group">
         <label class="col-md-4 control-label" for=""></label>
         <div class="col-md-4">
             <button type="submit" id="" name="" class="btn btn-success">
-                3D Ödeme
+                Non-3D Ödeme
             </button>
         </div>
     </div>
@@ -193,12 +190,9 @@
     </p>
 </form>
 
-
 <pre>
 {% if message %}
-{% autoescape off %}
 {{ message }}
-{% endautoescape %}
 {% endif %}
 </pre>
 {% endblock %}
