@@ -1,3 +1,4 @@
+# coding=utf-8
 from main.ipara_lib.Helper import Helper, HttpClient
 import json
 

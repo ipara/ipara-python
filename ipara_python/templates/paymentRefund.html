@@ -2,50 +2,49 @@
 <form action="" method="post" class="form-horizontal">
     <fieldset>
         <!-- Form Name -->
-        <legend>Bin Sorgulama</legend>
+        <legend>İade</legend>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="binNumber"
-                >Bin Numarası (*):</label
+            <label class="col-md-4 control-label" for="linkId"
+                >Sipariş Numarası (*):</label
             >
             <div class="col-md-4">
                 <input
-                    id="binNumber"
-                    name="binNumber"
+                    name="orderId"
                     type="text"
-                    placeholder=""
-                    value="466280"
+                    value="1550972096"
                     class="form-control input-md"
-                    required=""
+                    required
                 />
             </div>
         </div>
-
         <div class="form-group">
-            <label class="col-md-4 control-label" for="amount">Tutar (**):</label>
+            <label class="col-md-4 control-label" for="refundHash"
+                >Refund Hash (***):</label
+            >
             <div class="col-md-4">
                 <input
-                    id="amount"
+                    name="refundHash"
+                    type="text"
+                    value="006AYs42lD0p8nCbvU5FrPT3+8lOxScCAkuI1K9QedwXfWl9rA6DO0kwPorCpaIDmqe"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="amount"
+                >Tutar (**):</label
+            >
+            <div class="col-md-4">
+                <input
                     name="amount"
                     type="text"
-                    placeholder=""
-                    value="10000"
+                    value="100"
                     class="form-control input-md"
-                    required=""
+                    required
                 />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="threeD"
-                >3D / Non-Secure (*):</label
-            >
-            <div class="col-md-4">
-                <select class="form-control input-md" name="threeD">
-                    <option value="true">3D</option>
-                    <option value="false">Non-Secure</option>
-                </select>
             </div>
         </div>
 
@@ -59,6 +58,11 @@
             </div>
         </div>
     </fieldset>
+    <p>*** İade sorgulama isteğinden dönen "refundHash" parametresidir.</p>
+    <p>
+        ** Sipariş tutarı kuruş ayracı olmadan gönderilmelidir. Örneğin; 1 TL
+        100, 12 1200, 130 13000, 1.05 105, 1.2 120 olarak gönderilmelidir.
+    </p>
 </form>
 
 <br />

@@ -2,18 +2,36 @@
 <form action="" method="post" class="form-horizontal">
     <fieldset>
         <!-- Form Name -->
-        <legend>Cüzdana Kart Ekleme</legend>
+        <legend>Ödemeleri Listele</legend>
 
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for=""
-                >Kullanıcı Id (*):</label
+                >Başlangıç Tarihi (Gün/Ay/Yıl) (*):</label
             >
-            <div class="col-md-4">
+            <div class="col-md-1">
                 <input
-                    name="userId"
+                    name="startDay"
                     type="text"
-                    value="123456"
+                    value="19"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+            <div class="col-md-1">
+                <input
+                    name="startMonth"
+                    type="text"
+                    value="10"
+                    class="form-control input-md"
+                    required
+                />
+            </div>
+            <div class="col-md-1">
+                <input
+                    name="startYear"
+                    type="text"
+                    value="2021"
                     class="form-control input-md"
                     required
                 />
@@ -21,61 +39,31 @@
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for=""
-                >Kart Sahibi Adı Soyadı (*):</label
+                >Bitiş Tarihi (Gün/Ay/Yıl) (*):</label
             >
-            <div class="col-md-4">
-                <input
-                    value="Fatih Coşkun"
-                    name="nameSurname"
-                    class="form-control input-md"
-                    required
-                />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="">
-                Kart Numarası (*):</label
-            >
-            <div class="col-md-4">
-                <input
-                    value="4531444531442283"
-                    name="cardNumber"
-                    class="form-control input-md"
-                    required
-                />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="">
-                Son Kullanma Tarihi Ay/Yıl (*):
-            </label>
             <div class="col-md-1">
                 <input
-                    name="month"
+                    name="endDay"
                     type="text"
-                    value="12"
+                    value="29"
                     class="form-control input-md"
                     required
                 />
             </div>
             <div class="col-md-1">
                 <input
-                    name="year"
+                    name="endMonth"
                     type="text"
-                    value="24"
+                    value="10"
                     class="form-control input-md"
                     required
                 />
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="">
-                Kart Kısa Adı (*):
-            </label>
-            <div class="col-md-4">
+            <div class="col-md-1">
                 <input
-                    value="Maaş Kartı"
-                    name="cardAlias"
+                    name="endYear"
+                    type="text"
+                    value="2021"
                     class="form-control input-md"
                     required
                 />
@@ -87,7 +75,7 @@
             <label class="col-md-4 control-label" for=""></label>
             <div class="col-md-4">
                 <button type="submit" id="" name="" class="btn btn-success">
-                    Sorgula
+                    Ödemeleri Listele
                 </button>
             </div>
         </div>
@@ -97,7 +85,7 @@
 <br />
 <pre>
 {% if message %}
-    {{ message }}
+{{ message }}
 {% endif %}
 </pre>
 {% endblock %}

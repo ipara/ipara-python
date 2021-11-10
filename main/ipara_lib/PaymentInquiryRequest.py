@@ -1,9 +1,10 @@
+# coding=utf-8
 from main.ipara_lib.Helper import Helper, HttpClient
 from main.ipara_lib.configs import Configs
 
 
 class PaymentInquiryRequest:
-    # Ödeme sorugulama servisi için gerekli olan servis girdi parametrelerini temsil eder.
+    # Ödeme sorgulama servisi için gerekli olan servis girdi parametrelerini temsil eder.
     orderId = ""
 
     def execute(self, req, configs):
