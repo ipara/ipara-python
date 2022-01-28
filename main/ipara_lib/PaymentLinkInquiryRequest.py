@@ -10,6 +10,7 @@ class PaymentLinkInquiryRequest:
     clientIp = ""
     email = ""
     gsm = ""
+    linkId = ""
     linkState = ""
     startDate = ""
     endDate = ""

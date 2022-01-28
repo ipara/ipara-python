@@ -379,12 +379,18 @@ def paymentLinkInquiryRequest(request):
         req.email = request.POST.get('email')
         req.gsm = request.POST.get('gsm')
         req.linkState = request.POST.get('linkState')
-        req.startDate = request.POST.get(
-            'startYear') + "-" + request.POST.get(
-            'startMonth') + "-" + request.POST.get('startDay') + " 00:00:00"
-        req.endDate = request.POST.get(
-            'endYear') + "-" + request.POST.get(
-            'endMonth') + "-" + request.POST.get('endDay') + " 00:00:00"
+        req.startDate = ''
+        req.endDate = ''
+        if request.POST.get('linkId'):
+            req.linkId = request.POST.get('linkId')
+        if (request.POST.get('startYear') and request.POST.get('startMonth') and request.POST.get('startDay')):
+            req.startDate = request.POST.get(
+                'startYear') + "-" + request.POST.get(
+                'startMonth') + "-" + request.POST.get('startDay') + " 00:00:00"
+        if (request.POST.get('endYear') and request.POST.get('endMonth') and request.POST.get('endDay')):
+            req.endDate = request.POST.get(
+                'endYear') + "-" + request.POST.get(
+                'endMonth') + "-" + request.POST.get('endDay') + " 00:00:00"
         req.pageSize = request.POST.get('pageSize')
         req.pageIndex = request.POST.get('pageIndex')
 
